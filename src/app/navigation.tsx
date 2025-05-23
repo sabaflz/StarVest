@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, Theme as NavigationTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HomeScreen from './home/HomeScreen';
@@ -8,9 +8,13 @@ import TipsScreen from './tips/TipsScreen';
 
 const Tab = createBottomTabNavigator();
 
-export default function AppNavigation() {
+interface AppNavigationProps {
+  theme?: NavigationTheme;
+}
+
+export default function AppNavigation({ theme }: AppNavigationProps) {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {

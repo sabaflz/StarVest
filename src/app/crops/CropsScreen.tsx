@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-import { Text, Card, Title, Paragraph } from 'react-native-paper';
+import { Text, Card, Title, Paragraph, useTheme } from 'react-native-paper';
 
 // Mock API endpoint for crop recommendations
 const MOCK_API_URL = 'https://jsonplaceholder.typicode.com/posts';
@@ -9,6 +9,7 @@ export default function CropsScreen() {
   const [crops, setCrops] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { colors } = useTheme();
 
   useEffect(() => {
     const fetchCrops = async () => {
@@ -34,35 +35,22 @@ export default function CropsScreen() {
     fetchCrops();
   }, []);
 
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading crop recommendations...</Text>
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text>Error: {error}</Text>
-      </View>
-    );
-  }
-
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}> 
       <FlatList
         data={crops}
         keyExtractor={(item) => item.name}
         renderItem={({ item }) => (
-          <Card style={styles.card}>
+          <Card style={[styles.card, { backgroundColor: colors.surface }]}> 
             <Card.Content>
-              <Title>{item.name}</Title>
+              <Title style={{ color: colors.primary }}>{item.name}</Title>
               <Paragraph>{item.reason}</Paragraph>
             </Card.Content>
           </Card>
         )}
+        ListEmptyComponent={
+          loading ? <Text>Loading crop recommendations...</Text> : error ? <Text>Error: {error}</Text> : null
+        }
       />
     </View>
   );
@@ -72,8 +60,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    alignItems: 'center',
   },
   card: {
     marginBottom: 16,
+    width: '100%',
+    borderRadius: 16,
+    elevation: 3,
   },
 }); 
