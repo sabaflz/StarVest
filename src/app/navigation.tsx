@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HomeScreen from './home/HomeScreen';
 import WeatherScreen from './weather/WeatherScreen';
 import CropsScreen from './crops/CropsScreen';
@@ -10,7 +11,23 @@ const Tab = createBottomTabNavigator();
 export default function AppNavigation() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            if (route.name === 'Home') {
+              iconName = focused ? 'home' : 'home-outline';
+            } else if (route.name === 'Weather') {
+              iconName = focused ? 'weather-partly-cloudy' : 'weather-partly-cloudy';
+            } else if (route.name === 'Crops') {
+              iconName = focused ? 'sprout' : 'sprout-outline';
+            } else if (route.name === 'Tips') {
+              iconName = focused ? 'lightbulb' : 'lightbulb-outline';
+            }
+            return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+          },
+        })}
+      >
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Weather" component={WeatherScreen} />
         <Tab.Screen name="Crops" component={CropsScreen} />
