@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Image } from 'react-native';
 import { Card, Title, Paragraph, Text } from 'react-native-paper';
 
 const mockWeather = {
@@ -17,6 +17,12 @@ const mockCrops = [
 export default function HomeScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <Image
+        source={require('../../assets/images/StarVest_logo.png')}
+        style={styles.logo}
+        resizeMode="contain"
+        accessibilityLabel="StarVest Logo"
+      />
       <Card style={styles.card}>
         <Card.Content>
           <Title>Weather</Title>
@@ -39,9 +45,31 @@ export default function HomeScreen() {
   );
 }
 
+const NAVY = '#14233c';
+const GREEN = '#4caf50';
+
 const styles = StyleSheet.create({
-  container: { padding: 16 },
-  card: { marginBottom: 16 },
+  container: {
+    padding: 16,
+    alignItems: 'center',
+    backgroundColor: NAVY,
+    minHeight: '100%',
+  },
+  logo: {
+    width: 160,
+    height: 160,
+    marginBottom: 24,
+  },
+  card: {
+    marginBottom: 16,
+    width: '100%',
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    shadowColor: NAVY,
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 3,
+  },
   cropItem: { marginTop: 8 },
-  cropName: { fontWeight: 'bold' },
+  cropName: { fontWeight: 'bold', color: GREEN },
 });
