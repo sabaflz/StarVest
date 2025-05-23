@@ -1,20 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Card, Title, Paragraph } from 'react-native-paper';
+import { OPENWEATHERMAP_API_KEY } from '@env';
 
-const API_KEY = 'YOUR_OPENWEATHERMAP_API_KEY'; // Replace with your actual API key
-const CITY = 'San Francisco'; // Replace with your desired city
+declare module '@env' {
+  export const OPENWEATHERMAP_API_KEY: string;
+}
+
+const CITY = 'Cupertino';
+
+interface WeatherData {
+  main: {
+    temp: number;
+    humidity: number;
+  };
+  weather: Array<{
+    description: string;
+  }>;
+  wind: {
+    speed: number;
+  };
+}
 
 export default function WeatherScreen() {
-  const [weather, setWeather] = useState(null);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchWeather = async () => {
       try {
         const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric`
+          `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${OPENWEATHERMAP_API_KEY}&units=metric`
         );
         if (!response.ok) {
           throw new Error('Weather data not found');
@@ -22,8 +39,8 @@ export default function WeatherScreen() {
         const data = await response.json();
         setWeather(data);
         setLoading(false);
-      } catch (err) {
-        setError(err.message);
+      } catch (err: unknown) {
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
         setLoading(false);
       }
     };
@@ -72,4 +89,4 @@ const styles = StyleSheet.create({
   card: {
     width: '100%',
   },
-}); 
+});
