@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-import { Text, Card, Title, Paragraph } from 'react-native-paper';
+import { Text, Card, Title, Paragraph, useTheme } from 'react-native-paper';
 
 // Mock API endpoint for farming tips
 const MOCK_API_URL = 'https://jsonplaceholder.typicode.com/posts';
@@ -9,6 +9,7 @@ export default function TipsScreen() {
   const [tips, setTips] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { colors } = useTheme();
 
   useEffect(() => {
     const fetchTips = async () => {
@@ -34,35 +35,22 @@ export default function TipsScreen() {
     fetchTips();
   }, []);
 
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading farming tips...</Text>
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text>Error: {error}</Text>
-      </View>
-    );
-  }
-
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}> 
       <FlatList
         data={tips}
         keyExtractor={(item) => item.title}
         renderItem={({ item }) => (
-          <Card style={styles.card}>
+          <Card style={[styles.card, { backgroundColor: colors.surface }]}> 
             <Card.Content>
-              <Title>{item.title}</Title>
+              <Title style={{ color: colors.primary }}>{item.title}</Title>
               <Paragraph>{item.content}</Paragraph>
             </Card.Content>
           </Card>
         )}
+        ListEmptyComponent={
+          loading ? <Text>Loading farming tips...</Text> : error ? <Text>Error: {error}</Text> : null
+        }
       />
     </View>
   );
@@ -72,8 +60,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    alignItems: 'center',
   },
   card: {
     marginBottom: 16,
+    width: '100%',
+    borderRadius: 16,
+    elevation: 3,
   },
 }); 

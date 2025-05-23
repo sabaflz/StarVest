@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text, Card, Title, Paragraph } from 'react-native-paper';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { Card, Title, Paragraph, Text, useTheme } from 'react-native-paper';
 import { OPENWEATHERMAP_API_KEY } from '@env';
 
 declare module '@env' {
@@ -26,6 +26,7 @@ export default function WeatherScreen() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { colors } = useTheme();
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -48,45 +49,40 @@ export default function WeatherScreen() {
     fetchWeather();
   }, []);
 
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading weather data...</Text>
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text>Error: {error}</Text>
-      </View>
-    );
-  }
-
   return (
-    <View style={styles.container}>
-      <Card style={styles.card}>
+    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: colors.background }]}> 
+      <Card style={[styles.card, { backgroundColor: colors.surface }]}> 
         <Card.Content>
-          <Title>Weather in {CITY}</Title>
-          <Paragraph>Temperature: {weather?.main?.temp}°C</Paragraph>
-          <Paragraph>Condition: {weather?.weather?.[0]?.description}</Paragraph>
-          <Paragraph>Humidity: {weather?.main?.humidity}%</Paragraph>
-          <Paragraph>Wind: {weather?.wind?.speed} m/s</Paragraph>
+          <Title style={{ color: colors.primary }}>Weather in {CITY}</Title>
+          {loading ? (
+            <Text>Loading weather data...</Text>
+          ) : error ? (
+            <Text>Error: {error}</Text>
+          ) : (
+            <>
+              <Paragraph>Temperature: {weather?.main?.temp}°C</Paragraph>
+              <Paragraph>Condition: {weather?.weather?.[0]?.description}</Paragraph>
+              <Paragraph>Humidity: {weather?.main?.humidity}%</Paragraph>
+              <Paragraph>Wind: {weather?.wind?.speed} m/s</Paragraph>
+            </>
+          )}
         </Card.Content>
       </Card>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
   },
   card: {
     width: '100%',
+    borderRadius: 16,
+    marginBottom: 16,
+    elevation: 3,
   },
 });
