@@ -12,6 +12,8 @@ interface AppNavigationProps {
   theme?: NavigationTheme;
 }
 
+const INACTIVE_COLOR = '#7a8ca6'; // lighter navy for better visibility
+
 export default function AppNavigation({ theme }: AppNavigationProps) {
   return (
     <NavigationContainer theme={theme}>
@@ -30,6 +32,7 @@ export default function AppNavigation({ theme }: AppNavigationProps) {
             }
             return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
           },
+          tabBarInactiveTintColor: INACTIVE_COLOR,
         })}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
