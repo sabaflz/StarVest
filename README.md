@@ -63,3 +63,11 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Video Demo
+
+To see StarVest in action, check out our video demo:
+
+[![StarVest Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://youtu.be/Np55KkoVLCw)
+
+<!-- Replace `YOUR_VIDEO_ID` with the actual YouTube video ID of your demo. -->
