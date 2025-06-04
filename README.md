@@ -1,50 +1,65 @@
-# Welcome to your Expo app 👋
+# StarVest
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+StarVest is an Expo (React Native) project designed to help users manage and track their investments and financial goals. It provides a modern, user-friendly interface for monitoring portfolios, setting reminders, and exploring investment opportunities.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **Portfolio Management**: Track and manage your investments in one place.
+- **Reminders**: Set reminders for important financial tasks and deadlines.
+- **User-Friendly UI**: A clean, intuitive interface built with React Native and Expo.
 
+## Prerequisites
+
+- Node.js (v14 or later)
+- npm or yarn
+- Expo CLI (`npm install -g expo-cli`)
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/sabaflz/StarVest.git
+   cd StarVest
+   ```
+
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Start the app
+## Running the Project
 
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+To start the development server, run:
 ```bash
-npm run reset-project
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+This will launch the Expo development server, and you can run the app on:
+- **Web**: Open [http://localhost:19006](http://localhost:19006) in your browser.
+- **Android**: Use an Android emulator or scan the QR code with the Expo Go app.
+- **iOS**: Use an iOS simulator or scan the QR code with the Expo Go app.
 
-## Learn more
+## Available Scripts
 
-To learn more about developing your project with Expo, look at the following resources:
+- `npm start`: Start the Expo development server.
+- `npm run android`: Start the app on an Android emulator.
+- `npm run ios`: Start the app on an iOS simulator.
+- `npm run web`: Start the app in a web browser.
+- `npm run reset-project`: Reset the project to a blank state (moves starter code to `app-example`).
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Project Structure
 
-## Join the community
+- `app/`: Contains the main application code and screens.
+- `assets/`: Stores images, fonts, and other static assets.
+- `components/`: Reusable UI components.
+- `constants/`: Application constants and configuration.
+- `hooks/`: Custom React hooks.
+- `scripts/`: Utility scripts for project management.
 
-Join our community of developers creating universal apps.
+## Contributing
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
